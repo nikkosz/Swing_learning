@@ -10,7 +10,6 @@ public class Main extends JFrame {
 
     public JButton quit;
 
-
     public Main() {
         Initialize.addActionListener(new ActionListener() {
             @Override
