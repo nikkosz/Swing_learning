@@ -9,6 +9,7 @@ public class Main extends JFrame {
     public JButton Initialize;
 
     public JButton quit;
+    private JTextArea welcomeToMyLittleTextArea;
 
     public Main() {
         Initialize.addActionListener(new ActionListener() {

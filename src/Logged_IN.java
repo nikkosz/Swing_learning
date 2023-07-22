@@ -9,6 +9,9 @@ public class Logged_IN extends JFrame {
     private JPanel Logged_IN_Panel;
     private JPanel Panel;
     private JButton Close;
+    private JPanel Pane;
+    private JFormattedTextField email;
+    private JPasswordField password;
 
     public Logged_IN() {
         Close.addActionListener(new ActionListener() {
