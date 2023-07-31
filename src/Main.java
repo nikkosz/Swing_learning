@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
 public class Main extends JFrame {
 
@@ -12,38 +11,21 @@ public class Main extends JFrame {
     private JTextArea welcomeToMyLittleTextArea;
 
     public Main() {
-        Initialize.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                initialize();
-                //hide the Main pane.... damnit
-                //Main main2 = new Main();
-                //main2.Main_Panel.disable();
-                Component Close = (Component) e.getSource();
-                SwingUtilities.getWindowAncestor(Close).setVisible(false); // THAT WORKS!!!!
-
-
-            }
+        Initialize.addActionListener(e -> {
+            initialize();
+            //hide the Main pane.... damnit
+            //Main main2 = new Main(); //not working
+            //main2.Main_Panel.disable(); //not working
+            Component Close = (Component) e.getSource();                // ALSO NEEDS THAT!
+            SwingUtilities.getWindowAncestor(Close).setVisible(false); // THAT WORKS!!!!
         });
-        quit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
+        quit.addActionListener(e -> System.exit(0));
     }
 
     private void initialize() {
-        JOptionPane.showMessageDialog(null, "Initializng", "Swing_learning", JOptionPane.INFORMATION_MESSAGE);
-        Logged_IN logged_in = new Logged_IN();
+        JOptionPane.showMessageDialog(null, "Initializing", "Swing_learning", JOptionPane.INFORMATION_MESSAGE);
         Logged_IN.run();
-
-
     }
-    public void frames(){
-
-    }
-
 
     public static void main(String[] args){
         JFrame frame = new JFrame();
@@ -53,14 +35,13 @@ public class Main extends JFrame {
         frame.pack();
         frame.setVisible(true);
 
-        //frame.addWindowListener(new WindowAdapter() {
-        //    @Override
-        //    public void windowClosing(WindowEvent e){
-        //        setVisible(false);
-        //    }
-
-        //});
-        //frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+        //frame.addWindowListener(new WindowAdapter() { // doesn't work
+        //    @Override                                 // going further
+        //    public void windowClosing(WindowEvent e){ // and further
+        //        setVisible(false);                    // still going
+        //    }                                         // still...
+        //});                                           // yup...
+        //frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING)); //that ain't working either
 
     }
 

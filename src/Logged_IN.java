@@ -2,8 +2,6 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 
 public class Logged_IN extends JFrame {
@@ -18,8 +16,8 @@ public class Logged_IN extends JFrame {
     private JButton Register;
     private JLabel warning;
 
-    public void changed(){
-        if(email.getText().equals("")){
+    public void changed(){ //sets the Text under text fields to be seen or not depending on what's in the text fields
+        if(email.getText().isEmpty()){
             Log_IN.setEnabled(false);
             warning.setForeground(Color.red);
         }else{
@@ -29,17 +27,13 @@ public class Logged_IN extends JFrame {
     }
 
     public Logged_IN() {
-        Close.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-               Component Close = (Component) e.getSource();
-               SwingUtilities.getWindowAncestor(Close).dispose();
-               Main swing = new Main();
-               swing.main(null); //Don't know if it's good but well I quess it works? :/
-            }
+        Close.addActionListener(e -> {  //Disposing of a frame when "Close" button is pressed.
+           Component Close = (Component) e.getSource();
+           SwingUtilities.getWindowAncestor(Close).dispose();
+           Main.main(null); //Don't know if it's good but well I quess it works? :D
         });
 
-        email.getDocument().addDocumentListener(new DocumentListener() {
+        email.getDocument().addDocumentListener(new DocumentListener() {    //checks for text in text field "email"
             @Override
             public void insertUpdate(DocumentEvent e) {
                 changed();
@@ -56,21 +50,13 @@ public class Logged_IN extends JFrame {
             }
         });
 
-        Register.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        Register.addActionListener(e -> { //button for registration, still not functional as of 31.07.2023
 
-            }
         });
-        Log_IN.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0); //just the check if button is disabled while mail is empty
-            }
+        Log_IN.addActionListener(e -> {   //button for login, still not functional, used for testing purposes as of 31.07.2023
+            System.exit(0); //just the check if button works when text field is not empty
         });
     }
-
-
 
     public static void run() {
         JFrame logged = new JFrame();
@@ -78,7 +64,7 @@ public class Logged_IN extends JFrame {
         logged.setTitle("Logged");
         logged.setContentPane(new Logged_IN().Logged_IN_Panel);
         logged.setVisible(visible);
-        logged.pack();
+        logged.pack();                                                      //standard thing in terms of frames.
 
     }
 }
