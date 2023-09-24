@@ -2,6 +2,9 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.*;
 
 
 public class Logged_IN extends JFrame {
@@ -50,12 +53,38 @@ public class Logged_IN extends JFrame {
             }
         });
 
-        Register.addActionListener(e -> { //button for registration, still not functional as of 31.07.2023
+        Register.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Connection con = null;
+                Statement stmt = null;
+                ResultSet rs = null;
+                try {
+                    Class.forName("com.mysql.cj.jdbc.Driver"); // trying to get register button action going with sql
+                    String url ="jdbc:mysql://localhost:3306/account";
+                    String username="test";
+                    String password="test123";
 
+                    con = DriverManager.getConnection(url, username, password);
+                    stmt = con.createStatement();
+                    String sql = "IF NOT EXISTS (SELECT 1 FROM email WHERE email = '"+email.getText()+"') BEGIN INSERT INTO email (email) values ('"+email.getText()+"') END ";
+
+                    rs = stmt.executeQuery(sql); //it's not working at the moment and well I need to rethink the query to get appropiate result of it
+
+                    while (rs.next()){ // gotta check the result set and then make it work with appropiate prompts
+                        System.out.println(rs.getString(1)); //just a check if the query works, but as of now it trows exceptions kinda know why
+                    }
+                } catch (ClassNotFoundException ex) {
+                    throw new RuntimeException(ex);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
         });
         Log_IN.addActionListener(e -> {   //button for login, still not functional, used for testing purposes as of 31.07.2023
             System.exit(0); //just the check if button works when text field is not empty
         });
+
     }
 
     public static void run() {
